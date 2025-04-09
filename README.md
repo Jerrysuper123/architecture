@@ -117,5 +117,20 @@ Cloud Queue gives you all this **out of the box** — just set it up in the conf
 - queue is queue of message to be processed
 - channels are paths for task/message to be filtered and delegate
 
+# what is cloud stream
+- like kafka - store vent logs in partition
+- services can replay and consume independantly
+- highly throughput
+- event driven architecture, large scale ingestion
+
+# what is cloud topic (notification)
+- it is a pub/sub model
+- push msg to
+- email
+- sms
+- https endpoint
+- functions
+- Useful for sending alerts, broadcasting updates, triggering actions.
+
 
   
