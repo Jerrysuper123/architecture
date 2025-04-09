@@ -56,3 +56,13 @@ vs
 ```
 
 ---
+
+## database are not meant for polling or constant status update
+Due to downsides:
+- there is a delay between when data is written. and when it's read. If polling every 10 second, we are missing the real data in 10 second, that is latency
+- put extra load on the database, not designed like message broker, slow down the overall system as more services and checks are added
+- does not scale as app grows
+
+A better way is to use event-driven messaging
+- it is like switching from refreshing your inbox constantly to just getting notifications when email arrives.
+  
