@@ -65,4 +65,53 @@ Due to downsides:
 
 A better way is to use event-driven messaging
 - it is like switching from refreshing your inbox constantly to just getting notifications when email arrives.
+
+  Great! Here's what that line means, broken down clearly:
+
+---
+
+### 📦 "Messages are persisted with retry and DLQ (dead letter queue) support" means:
+
+#### ✅ **1. Messages are persisted**
+- Messages sent to the cloud Queue are **stored reliably**.
+- If the consumer service isn't available right away, the message is **not lost**.
+- It stays in the queue until:
+  - It's successfully processed.
+  - It expires (based on retention period).
+  - Or it's moved to the DLQ (more on that below).
+
+Think of it like a **mailbox that keeps the letter safe** until someone picks it up.
+
+---
+
+#### 🔁 **2. Retry support**
+- If a consumer **fails to process a message** (e.g. service crash, error), cloud can:
+  - **Retry delivery** automatically.
+  - You can configure the number of retries.
+- This improves reliability — messages don’t just disappear if something goes wrong once.
+
+Example:  
+Your service tries to process a message but hits a network error → cloud can **retry a few times** before giving up.
+
+---
+
+#### 🪦 **3. DLQ = Dead Letter Queue**
+- If a message **fails too many times** (after all retry attempts), it is moved to a **Dead Letter Queue**.
+- This is like a **quarantine zone** for "bad" messages.
+- You can inspect the DLQ later to:
+  - Debug the issue.
+  - Fix or reprocess failed messages.
+  - Avoid data loss.
+
+---
+
+### 🧠 Why this matters:
+Without this, you'd have to build your own logic to:
+- Retry on failure.
+- Track failed messages.
+- Avoid losing important data.
+
+Cloud Queue gives you all this **out of the box** — just set it up in the config.
+
+
   
