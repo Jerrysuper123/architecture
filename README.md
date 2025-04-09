@@ -113,5 +113,9 @@ Without this, you'd have to build your own logic to:
 
 Cloud Queue gives you all this **out of the box** — just set it up in the config.
 
+## Queue and channel
+- queue is queue of message to be processed
+- channels are paths for task/message to be filtered and delegate
+
 
   
