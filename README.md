@@ -1,5 +1,62 @@
 # architecture
 
+Good question — in **microservices**, **data loss** isn't common per se, but it's definitely a **risk**, especially during **inter-service communication** or **synchronization**, depending on how things are designed.
+
+Here are some **common causes of data loss or inconsistency** between components:
+
+---
+
+### 🔄 **1. Sync Failures (Async Communication)**
+- If you use message brokers like Kafka, RabbitMQ, or SNS/SQS for async communication and:
+  - A message gets published, but the consumer crashes or fails to process it
+  - No proper **acknowledgement** / **retry** strategy is in place
+  - Messages are not **durable/persisted**
+  
+💡 **Solution**: Use **durable queues**, **retry logic**, and **dead-letter queues (DLQs)** to capture failed events.
+
+---
+
+### ⚡ **2. Synchronous API Failures**
+- Service A calls Service B via REST/gRPC, but:
+  - Service B is down
+  - There's a timeout
+  - There’s a network partition
+
+If Service A proceeds thinking the call succeeded, you get **partial updates** → classic **data inconsistency**.
+
+💡 **Solution**: Use patterns like **circuit breakers**, **retries with backoff**, or **sagas** for better resilience.
+
+---
+
+### ⚙️ **3. Lack of Idempotency**
+- If retries are not idempotent (e.g. inserting a row again instead of updating), you can get data corruption or duplication.
+
+💡 **Solution**: Ensure **idempotent operations** (same request → same result, no side effects).
+
+---
+
+### 📦 **4. No Distributed Transaction Handling**
+- Microservices typically avoid distributed transactions (2PC) because of complexity and tight coupling.
+- Without a strategy like **Saga pattern**, one service might commit a change, but the others don’t → inconsistent data state.
+
+💡 **Solution**: Implement **saga orchestration** or **choreography** to handle failures across multiple services in a business process.
+
+---
+
+### 📜 **5. Versioning or Schema Drift**
+- If one service updates its schema but another isn't updated, you might silently drop fields or misinterpret data.
+
+💡 **Solution**: Use **backward/forward-compatible schemas** (e.g. Avro, Protobuf) and enforce **versioning discipline**.
+
+---
+
+### ✅ TL;DR:
+- **Data loss isn’t expected**, but can happen due to **network issues**, **bad error handling**, or **missing retry/durability mechanisms**.
+- Prevent it using: **durable messaging**, **idempotency**, **saga patterns**, and **robust error handling**.
+
+---
+
+
 ### 🔄 **Current Approach: Using SQL/NoSQL Tables to Communicate Between Microservices**
 
 #### ✅ What's Happening
