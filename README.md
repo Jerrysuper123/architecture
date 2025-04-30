@@ -1,5 +1,14 @@
 # architecture
 
+## OCI resource principal
+What is resource principal (RP)
+- RP could be db, virtual machine, functions, OKE container
+- Policy permission: Allow my DB with a specific id in the compartment to access my key
+- How to identify? Use Resource Principal Session Token (RPST) comes into play: a short-lived token that asserts the identity of a specific resource type, such as 'I am a resource of type container with ID ocid1.container.111111111111111.' With RPST, resources can securely make API calls under their own identity
+
+https://blogs.oracle.com/cloud-infrastructure/post/behind-the-scenes-iam-oci-resource-principals
+
+
 Good question — in **microservices**, **data loss** isn't common per se, but it's definitely a **risk**, especially during **inter-service communication** or **synchronization**, depending on how things are designed.
 
 Here are some **common causes of data loss or inconsistency** between components:
