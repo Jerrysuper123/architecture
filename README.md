@@ -1,8 +1,60 @@
 # architecture
 
-Great question.
 
 ## CLOB - Character Large Object - not storing in the sql table, but store a pointer to a separate location on the disk
+A **CLOB** (Character Large Object) is a **SQL data type** designed to store **very large amounts of text data**—often much larger than a standard `VARCHAR` or `TEXT` field can handle.
+
+---
+
+### 🔍 What is a CLOB?
+
+* **CLOB** stands for **Character Large Object**.
+* It's used for **storing large plain text**, such as:
+
+  * Articles
+  * Code dumps
+  * Log files
+  * Documents
+* Typically supports **gigabytes** of data, depending on the database.
+* Stored in a way that's optimized for **sequential reading**, not frequent random access.
+
+---
+
+### 💡 Key Characteristics
+
+| Feature           | Value                                                                    |
+| ----------------- | ------------------------------------------------------------------------ |
+| Data type         | Stores **character data** (e.g., UTF-8, UTF-16)                          |
+| Max size          | Often **up to 2–4 GB**, varies by DB engine                              |
+| SQL operations    | Can be read/written, but often **not searchable with `LIKE`** by default |
+| Access method     | Often accessed as a **stream** in code, not fully loaded into memory     |
+| Use case vs. BLOB | Like BLOB, but for **text**, not binary                                  |
+
+---
+
+### 🏗 Examples by Database
+
+| Database   | Large Text Type    | Notes                                              |
+| ---------- | ------------------ | -------------------------------------------------- |
+| Oracle     | `CLOB`             | Native support; also supports `NCLOB` for Unicode  |
+| PostgreSQL | `TEXT` (no `CLOB`) | `TEXT` is unlimited, used instead of `CLOB`        |
+| MySQL      | `LONGTEXT`         | No `CLOB` keyword, but `LONGTEXT` behaves like one |
+| SQL Server | `VARCHAR(MAX)`     | Modern replacement for `TEXT` and `CLOB`           |
+| SQLite     | `TEXT`             | Flexible typing; no distinct `CLOB` type needed    |
+
+---
+
+### 🧠 When to Use CLOB
+
+Use a `CLOB` (or its equivalent) when:
+
+* You need to store **very large amounts of text**.
+* You don't need **fast substring search** inside SQL (or you're okay with workarounds).
+* You're primarily reading/writing the text **via application code**, not inline SQL.
+
+---
+
+
 ### 🔍 **How a CLOB works under the hood**
 
 A `CLOB` (Character Large Object) is a way for a database to store **very large text data** separately from the main table structure. Here's how it generally works:
