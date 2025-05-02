@@ -2,6 +2,7 @@
 
 
 ## CLOB - Character Large Object - not storing in the sql table, but store a pointer to a separate location on the disk
+- not be confused with Blob - binary large object, which stores file jpg, pdf as binary, different from text/clob
 A **CLOB** (Character Large Object) is a **SQL data type** designed to store **very large amounts of text data**—often much larger than a standard `VARCHAR` or `TEXT` field can handle.
 
 ---
