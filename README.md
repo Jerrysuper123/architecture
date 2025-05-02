@@ -1,5 +1,64 @@
 # architecture
 
+Great question.
+
+## CLOB - Character Large Object - not storing in the sql table, but store a pointer to a separate location on the disk
+### 🔍 **How a CLOB works under the hood**
+
+A `CLOB` (Character Large Object) is a way for a database to store **very large text data** separately from the main table structure. Here's how it generally works:
+
+---
+
+### 🧱 1. **Storage Mechanism**
+
+* **Text Format**: A CLOB stores **text, not binary**. It’s encoded in a character set (e.g., UTF-8, UTF-16), depending on your DB and column settings.
+* **Out-of-Row Storage**: Most databases **do not store the full CLOB content in the table row**—only a pointer or reference. The actual content is kept in a separate location on disk (like a LOB segment or file).
+* **Streaming**: CLOBs are often **streamed in and out** rather than read fully into memory. This avoids loading multi-MB or GB text into RAM at once.
+
+---
+
+### 🔄 2. **Reading/Writing Behavior**
+
+* **In SQL**: You can write to a CLOB using `INSERT`/`UPDATE` or dedicated streaming APIs.
+* **In Applications**: Languages like Java or Python provide stream-based interfaces (e.g., `Clob.setCharacterStream()` or `read()`) to avoid memory overuse.
+* **Searching**: Searching a CLOB with `LIKE` or full-text search usually requires special indexing (or isn’t supported at all without it).
+
+---
+
+### 🗜️ 3. **Compression**
+
+* **CLOBs are not always compressed by default.**
+* It depends on the **database and configuration**:
+
+| Database   | Compression Support for CLOB                                          |
+| ---------- | --------------------------------------------------------------------- |
+| Oracle     | ✅ Yes, with `SecureFiles` LOBs and compression enabled                |
+| PostgreSQL | ✅ Yes, if using TOAST compression for large `TEXT` fields             |
+| MySQL      | ❌ Not by default for `TEXT`, `LONGTEXT` (no built-in LOB compression) |
+| SQL Server | ✅ Yes, if using `FILESTREAM` or `COMPRESS()` manually                 |
+| SQLite     | ❌ No built-in compression (you must compress manually before insert)  |
+
+* **Custom compression**: In some cases, applications compress the text (e.g., using `gzip`) and store it in a `BLOB`, but that loses searchability and readability.
+
+---
+
+### ⚠️ Considerations
+
+* **Searchability**: CLOBs can’t always be searched or indexed efficiently unless your DB offers special full-text indexing.
+* **Performance**: Good for write-once, read-occasionally cases. Not great for frequent edits or updates.
+* **Encoding**: Since it stores text, encoding consistency (UTF-8 etc.) is crucial. Misaligned encodings can corrupt reads.
+
+---
+
+### ✅ Summary
+
+* A **CLOB stores very large text**, often in a separate area on disk.
+* It uses **character encoding**, not raw binary.
+* **Compression** depends on DB engine and settings (sometimes manual).
+* Best used when you need to store **large text blobs**, but **don't need frequent text processing** in SQL.
+
+
+
 ## OCI resource principal
 What is resource principal (RP)
 - RP could be db, virtual machine, functions, OKE container
