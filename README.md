@@ -1,5 +1,53 @@
 # architecture
 
+The difference between **batch** and **stream** data processing lies in **how** and **when** data is processed:
+
+---
+
+### 🔁 **Batch Processing**
+
+* **What it is**: Processing large volumes of data **collected over time**.
+* **When**: Data is processed **after it's been collected**, usually at scheduled intervals (e.g., hourly, daily).
+* **Use cases**: Reporting, analytics, billing, data transformation, backups.
+* **Examples**:
+
+  * Processing logs from the past day.
+  * ETL jobs that move data from a database to a data warehouse every night.
+
+| Feature    | Batch Processing               |
+| ---------- | ------------------------------ |
+| Input size | Large volumes, historical data |
+| Latency    | High (minutes to hours)        |
+| Complexity | Simpler to design and scale    |
+| Tools      | Apache Spark, AWS Glue, Hadoop |
+
+---
+
+### 🔄 **Stream Processing**
+
+* **What it is**: Processing data **in real-time** or **near real-time** as it's generated.
+* **When**: Data is processed **continuously**, almost immediately after it arrives.
+* **Use cases**: Fraud detection, real-time analytics, live dashboards, monitoring.
+* **Examples**:
+
+  * Updating a stock price dashboard in real time.
+  * Detecting anomalies in network traffic as they happen.
+
+| Feature    | Stream Processing                                      |
+| ---------- | ------------------------------------------------------ |
+| Input size | Small, continuous flows                                |
+| Latency    | Low (seconds or milliseconds)                          |
+| Complexity | More complex to build and maintain                     |
+| Tools      | Apache Kafka, Apache Flink, Spark Structured Streaming |
+
+---
+
+### 🔧 Quick analogy:
+
+Think of **batch** as doing laundry once a week (processing all dirty clothes at once), and **stream** as washing each item the moment it gets dirty.
+
+
+
 
 ## CLOB - Character Large Object - not storing in the sql table, but store a pointer to a separate location on the disk
 
