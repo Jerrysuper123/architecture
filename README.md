@@ -1,5 +1,81 @@
 # architecture
 
+We need a **reverse proxy** like **Nginx** or **HAProxy** because it acts as a **smart traffic controller** between clients and your application servers — providing **security, performance, scalability, and flexibility**. Here’s a clear breakdown of **why reverse proxies are commonly used**:
+
+---
+
+## 🔁 What Is a Reverse Proxy?
+
+A **reverse proxy** sits in front of your backend (like a Node.js app), receives client requests, and **forwards them to your app servers**, then sends the response back to the client.
+
+---
+
+## ✅ Why We Use a Reverse Proxy
+
+### 1. **SSL Termination**
+
+* 🔒 Handles HTTPS encryption/decryption (TLS handshake) before passing traffic to backend.
+* ✅ Offloads CPU-heavy TLS work from your Node server.
+* ✅ Easier to manage SSL certs (e.g., with Let’s Encrypt on Nginx).
+
+### 2. **Load Balancing**
+
+* 🧠 Distributes traffic across **multiple backend servers or Node processes**.
+* ✅ Ensures high availability and scalability.
+* ✅ Prevents one server from becoming a bottleneck.
+
+### 3. **Security (First Line of Defense)**
+
+* 🚫 Filters out bad requests before they reach your app.
+* ✅ Can apply:
+
+  * IP whitelisting/blacklisting
+  * Rate limiting
+  * Protection against DDoS attacks
+
+### 4. **Static Content Offloading**
+
+* 🖼️ Serves static files (images, CSS, JS) **more efficiently** than Node.js.
+* ✅ Frees up your app server to focus on dynamic requests.
+
+### 5. **Single Entry Point for Multiple Services**
+
+* 🌐 Lets you route different URLs or subdomains to different backend apps.
+* Example:
+
+  * `/api` → Node.js API
+  * `/admin` → React app
+  * `/blog` → WordPress
+
+### 6. **Caching**
+
+* ⚡ Stores common responses temporarily.
+* ✅ Reduces load on backend, speeds up repeated requests.
+
+### 7. **Hot Restart of App Server**
+
+* 🔄 You can restart your Node app without dropping client connections.
+* ✅ Nginx keeps handling traffic during a restart.
+
+---
+
+## 🔍 Without a Reverse Proxy
+
+If you expose your Node app directly:
+
+* You're handling SSL manually in app code.
+* You're exposing your app server directly to the internet (security risk).
+* You're limited in scaling (1 port, 1 process).
+* Your app server is doing things it's not optimized for (e.g., serving images).
+
+---
+
+## 📌 Summary
+
+> A reverse proxy is **not strictly required**, but in production systems, it is highly recommended because it **makes your app more secure, efficient, and scalable**.
+
+
+
 The difference between **batch** and **stream** data processing lies in **how** and **when** data is processed:
 
 ---
