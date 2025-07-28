@@ -1,5 +1,33 @@
 # architecture
 
+## hardening - reduce unnecessary interface to reduce vulenrability
+**Hardening**, in simple terms, means **making something more secure**.
+
+In the context of computers or software, hardening means:
+
+> **Removing anything unnecessary and fixing weak spots** so that hackers have fewer ways to attack it.
+
+---
+
+### Examples:
+
+* **Hardening a server**:
+  Turn off unused services, install security patches, and make sure only trusted users can log in.
+
+* **Hardening a Java app**:
+  Use the latest Java version, remove debugging tools, and don’t let it run as the admin (root) user.
+
+* **Hardening a Docker image**:
+  Use a small, safe base image, include only what’s needed, and run your app with low privileges.
+
+---
+
+### Analogy:
+
+Think of it like **locking all the doors and windows of your house**, and removing ladders or tools that burglars could use to get in.
+
+## API gateway
+
 These terms describe **core components of API Gateway routing configurations** in Kubernetes ecosystems, particularly when using tools like **Spring Cloud Gateway**, **Kubernetes Ingress Controllers** (Nginx, Traefik), or **Service Meshes** (Istio). Here's what each means and how they work together:
 
 ---
