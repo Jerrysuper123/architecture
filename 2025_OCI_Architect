@@ -1,1 +1,48 @@
+# Intro
+Terraform
+What is cloud native
+
+•    Architect High Availability and Disaster Recovery Solutions
+•    Become proficient in designing Cloud-Native Solutions and implementing Infrastructure as Code
+•    Implement and operate databases in OCI
+•    Architect Security Solutions
+•    Design multicloud and hybrid solutions
+•    Perform workload migration to OCI
+•    Implement Observability solutions
+
+Prerequisites: You need to have a good understanding of core OCI services (Identity and Access Management, Networking, Compute and Storage). Additionally, a minimum of 1-2 years of hands-on experience with OCI services is recommended.
+
+Skills you will learn:
+
+•    High Availability and Disaster Recovery : Full Stack Disaster Recovery service
+•    Cloud-Native Solutions : Oracle Cloud Infrastructure Registry, Container Instances ,Oracle Cloud Infrastructure Container Engine for Kubernetes (OKE), Functions and API Gateway
+•    Infrastructure as Code: Terraform, Resource Manager 
+•    Security services: OCI Bastion, Network Firewall, Certificates, Web Application Firewall, KMS
+•    Databases: Base Database service, Autonomous Databases
+•    Migration: Oracle Cloud Migrations, migrate data and databases to OCI
+•    Multicloud and Hybrid: OCI-Azure Interconnect, Oracle Database@Azure, Oracle Cloud VMWare Solution
+•    Observability: Monitoring, Logging
+
+## cert
+
+
+## IAM refresher (identiy and access management)
+
+- identity domain - iolsated partition within OCI (reforce password)
+- Users/groups, streamlining access control
+- administrator roles 
+- IAM policies (syntax, policy actions, and placement)
+- Compartments
+- Quota/budgets (how to set quota and budget to management resource efficiently)
+- Granular acccess control (policy inheritance, conditional policies, tag-based access control)
+
+policy inheriance - policy can inherit policy from parent compartment
+conditional policies - policy to be exe based on conditions
+tag-based access control
+
+- network source (how to restrict access to resource based on specific ip address and virtual cloud network)
+- dynamic groups
+
+
+
 
