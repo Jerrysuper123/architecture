@@ -1,6 +1,8 @@
 # architecture
 
-Model context protocol (MCP)
+## Model context protocol (MCP)
+<img width="1100" height="1376" alt="image" src="https://github.com/user-attachments/assets/7cac86c6-298f-4652-9671-7f92aa2c22c9" />
+
 Excellent question — and this one confuses many developers the first time they use **Cline** (the AI coding environment) with **MCP** tools like `mcp-atlassian`.
 
 Let’s break it down clearly 👇
