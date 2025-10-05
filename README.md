@@ -1,5 +1,80 @@
 # architecture
 
+Model context protocol (MCP)
+Excellent question — and this one confuses many developers the first time they use **Cline** (the AI coding environment) with **MCP** tools like `mcp-atlassian`.
+
+Let’s break it down clearly 👇
+
+---
+
+### 🧩 What’s happening
+
+When you see something like this in your `cline.json`:
+
+```json
+{
+  "command": "docker",
+  "args": [
+    "run", "--rm", "-i",
+    "-e", "xxx",
+    "-e", "xxx",
+    "-e", "xxx",
+    "xxxx"
+  ]
+}
+```
+
+That means **Cline will run that command** to start a **Model Context Protocol (MCP) server** — in this case, one that connects to Jira (and optionally Confluence).
+
+---
+
+### 🧠 Why Docker (and therefore Colima) is needed
+
+* **Cline doesn’t run the MCP tool natively.**
+  Instead, it launches a **Docker container** that hosts the MCP service.
+
+* That Docker container  contains the necessary scripts, dependencies, and runtime to talk to Jira or Confluence APIs.
+
+* So, for Cline to successfully start that MCP server, it must be able to execute:
+
+  ```bash
+  docker run ...
+  ```
+
+  And for that to work, you need a **Docker runtime** available.
+
+---
+
+### 💡 Why Colima specifically
+
+* On **macOS**, Docker doesn’t run natively — it needs a Linux VM underneath.
+* Normally, **Docker Desktop** provides this VM.
+* If you don’t use Docker Desktop, **Colima** provides the same functionality — it’s an open-source, lightweight alternative.
+* Without either one running, `docker run` will fail (because there’s no Docker daemon listening).
+
+So Colima acts as the **engine that actually runs the containers** Cline wants to start for its MCP tools.
+
+---
+
+### ⚙️ In short
+
+| Component                           | Role                                              |
+| ----------------------------------- | ------------------------------------------------- |
+| **Cline**                           | Runs and manages MCP tools                        |
+| **MCP tool (e.g. `mcp-atlassian`)** | A service that connects to Jira, Confluence, etc. |
+| **Docker**                          | Runs the MCP tool as a container                  |
+| **Colima**                          | Provides Docker runtime on macOS                  |
+
+---
+
+### ✅ TL;DR
+
+You need **Colima** because:
+
+> Cline uses `docker run ...` to start MCP tools, and on macOS, Docker needs a backend like Colima (or Docker Desktop) to actually work.
+
+
+
 ## hardening - reduce unnecessary interface to reduce vulenrability
 **Hardening**, in simple terms, means **making something more secure**.
 
