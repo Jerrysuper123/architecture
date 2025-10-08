@@ -1,5 +1,57 @@
 # architecture
 
+Yes — that description refers to connecting to an **Oracle Autonomous Database (ADB)** using **mTLS (mutual TLS) authentication**, and here’s what it means in detail:
+
+---
+
+### 🔒 What “Download client credentials (Wallet)” means
+
+When you create an **Autonomous Database** in Oracle Cloud (like ATP or ADW), Oracle provides a **wallet file** — a `.zip` file that contains all the connection and security details you need to securely connect to your database **from outside OCI**, such as from your laptop, an application server, or SQL Developer.
+
+This **wallet** includes:
+
+* **`tnsnames.ora`** – Defines database connection strings (like `dbname_high`, `dbname_low`, etc.).
+* **`sqlnet.ora`** – Defines how clients should connect (e.g. encryption, SSL settings).
+* **`cwallet.sso`** and **`ewallet.p12`** – Contain certificates and private keys used for **mutual TLS authentication**.
+* **`keystore.jks`**, **`truststore.jks`** – Java keystores if you’re connecting via JDBC.
+* **`tnsnames.ora`** – Defines database connection service names.
+
+When you click **Download Wallet**, OCI generates and gives you a **ZIP** file containing all those credentials.
+You’ll be prompted to **enter a password**, which encrypts sensitive contents (especially the private key).
+
+---
+
+### 🔁 What happens when you use it
+
+When you later connect using that wallet:
+
+* Your client (e.g. SQL Developer, JDBC, Python cx_Oracle, etc.) uses the wallet certificates to prove **its identity** to Oracle’s database.
+* The database also proves **its identity** back to your client (hence the “mutual” in **mTLS**).
+* Once both sides are verified, a secure, encrypted connection (TLS) is established.
+
+---
+
+### ⚙️ Alternative: TLS without wallet
+
+Oracle now also supports **TLS-only connections** (non-mutual TLS):
+
+* You don’t need a wallet.
+* You authenticate using **username/password** or **IAM token**, but the server still uses TLS to encrypt traffic.
+* Easier setup for web apps and cloud services, but slightly less secure since client certificate auth is skipped.
+
+---
+
+### ✅ In short
+
+| Type         | Needs Wallet | Auth Type                                          | Use Case                                                  |
+| ------------ | ------------ | -------------------------------------------------- | --------------------------------------------------------- |
+| **mTLS**     | ✅ Yes        | Client & server both authenticate via certificates | Traditional secure connection from local/third-party apps |
+| **TLS-only** | ❌ No         | Server-only certificate, client uses password      | Simpler, modern apps or cloud integrations                |
+
+---
+
+
+
 ## Model context protocol (MCP)
 <img width="1100" height="1376" alt="image" src="https://github.com/user-attachments/assets/7cac86c6-298f-4652-9671-7f92aa2c22c9" />
 
